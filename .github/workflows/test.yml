@@ -16,16 +16,8 @@ jobs:
     - name: Login to GitHub Container Registry
       run: curl docker login gchr.io/ -u ${{ github.repository_owner }} -p ${{ secrets.TOKEN }}
 
-    - name: build
+    - name: Build and Push 
       run: | 
         curl docker build -t test_image .
-
-    - name: Push
-      uses: docker/build-push-action@v2
-      id: docker_build
-      with:
-        context: .
-        file: ./Dockerfile
-        push: true
-        tags: |
-          ghcr.io/${{ github.repository_owner }}/test_image:latest
+        docker tag 5fa570368df9 ghcr.io/cpplovelove/test_image:lts 
+        docker push ghcr.io/<cpplovelove>/test_image:lts
