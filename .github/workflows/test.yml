@@ -18,6 +18,6 @@ jobs:
 
     - name: Build and Push 
       run: | 
-        curl docker build -t test_image .
+        docker build -t test_image .
         docker tag 5fa570368df9 ghcr.io/cpplovelove/test_image:lts 
         docker push ghcr.io/<cpplovelove>/test_image:lts
