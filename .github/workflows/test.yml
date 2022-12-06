@@ -16,8 +16,9 @@ jobs:
     - name: Login to GitHub Container Registry
       run: curl docker login gchr.io/ -u ${{ github.repository_owner }} -p ${{ secrets.TOKEN }}
 
-    - name: push
-      run: curl docker build -t test_image .
+    - name: build
+      run: | 
+      curl docker build -t test_image .
 
     - name: Push
       uses: docker/build-push-action@v2
