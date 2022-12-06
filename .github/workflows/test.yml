@@ -18,7 +18,7 @@ jobs:
 
     - name: build
       run: | 
-      curl docker build -t test_image .
+        curl docker build -t test_image .
 
     - name: Push
       uses: docker/build-push-action@v2
