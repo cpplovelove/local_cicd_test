@@ -6,6 +6,9 @@ on:
 
 jobs:
   test:
+    name: push image to github registry
+    runs-on: ubuntu-latest
+
     steps:
     - name: Checkout code
       uses: actions/checkout@v2
