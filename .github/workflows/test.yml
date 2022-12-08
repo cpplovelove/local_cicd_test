@@ -37,7 +37,7 @@ jobs:
           HOSTNAME : ${{ secrets.HOST  }}
           USER_NAME : ${{ secrets.USERNAME  }}
       run: |
-          ssh -i "symoon_saba_key_gen.pem" ubuntu@13.209.98.234
+          ssh -i "$PRIVATE_KEY" "$USER_NAME"@"$HOSTNAME"    
           docker pull ${{ secrets.DOCKERHUB_USERNAME }}/test_image:latest
 
           #ssh -i "symoon_saba_key_gen.pem" ${{ secrets.USERNAME  }}@${{ secrets.HOST  }}        
