@@ -32,15 +32,16 @@ jobs:
         tags: ${{ secrets.DOCKERHUB_USERNAME }}/test_image:latest
 
 
-    - name: ls -a via ssh
-      uses: fifsky/ssh-action@master
+    - name: Load private SSH key
+      uses: webfactory/ssh-agent@v0.5.3
       with:
-        command: |
-          cd /test
-          ls -a
-        host: ${{ secrets.HOST }}
-        user: ${{ secrets.USERNAME }}
-        key: ${{ secrets.KEY}}
+        ssh-private-key: ${{ secrets.KEY }}
+
+    - name: Atomic Deploy
+      run: |
+        ssh ${{ secrets.USERNAME }}@${{ secrets.HOST }} << EOF
+          whoami
+        EOF
 
 
     - name: Pull testImage to Server
