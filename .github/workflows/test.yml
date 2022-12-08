@@ -36,10 +36,8 @@ jobs:
       with:
         host: ${{ secrets.HOST }}
         username : ${{ secrets.USERNAME }}
-        password: ${{ secrets.PASSWORD }}
+        key: ${{ secrets.KEY }}
         port: 22
         script_stop: true
-        script: |
-          sudo -S apt install jq
-          docker login -u ${{ github.repository_owner }} -p ${{ secrets.DOCKERHUB_TOKEN }}
+        script: whoami
           
