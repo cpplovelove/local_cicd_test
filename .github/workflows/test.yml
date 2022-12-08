@@ -40,7 +40,8 @@ jobs:
           sudo -S apt install jq
           docker login -u ${{ github.repository_owner }} -p ${{ secrets.DOCKERHUB_TOKEN }}
           docker pull cpplovelove/test_image:latest
-          
+          exit 0
+
         host: ${{ secrets.HOST }}
         user: ubuntu
         key: ${{ secrets.KEY}}
