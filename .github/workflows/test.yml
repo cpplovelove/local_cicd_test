@@ -42,7 +42,7 @@ jobs:
           docker rmi cpplovelove/cicd:latest
           docker pull cpplovelove/test_image:latest
           
-          cd CI-CD_test$
+          cd CI-CD_test
           ./build.sh
 
           exit 0
