@@ -13,12 +13,36 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v2
         
+    - name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v1
+    
+    - name: Login to DockerHub
+      uses: docker/login-action@v1
+      with:
+        username: ${{ secrets.DOCKERHUB_USERNAME }}
+        password: ${{ secrets.DOCKERHUB_TOKEN }}
+   
+    - name: Build and push testImage
+      uses: docker/build-push-action@v2
+      with:
+        context: .
+        file: ./Dockerfile
+        platforms: linux/amd64
+        push: true
+        tags: ${{ secrets.DOCKERHUB_USERNAME }}/test_image:latest
+
     - name: ls -a via OPEN SSH Private Key
       uses: fifsky/ssh-action@master
       with:
         command: |
+          cd test
           ls -a
+          sudo -S apt install jq
+          docker login -u ${{ github.repository_owner }} -p ${{ secrets.DOCKERHUB_TOKEN }}
+          docker pull cpplovelove/test_image:latest
+          
         host: ${{ secrets.HOST }}
         user: ubuntu
         key: ${{ secrets.KEY}}
         args: "-tt -vvv"
+          
