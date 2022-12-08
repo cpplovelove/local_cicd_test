@@ -31,19 +31,15 @@ jobs:
         push: true
         tags: ${{ secrets.DOCKERHUB_USERNAME }}/test_image:latest
 
-    - name: Deploy in EC2
-      env:
-          PRIVATE_KEY: ${{ secrets.KEY  }}
-          HOSTNAME : ${{ secrets.HOST  }}
-          USER_NAME : ${{ secrets.USERNAME  }}
-      run: |
-          ssh -i "$PRIVATE_KEY" "$USER_NAME"@"$HOSTNAME"    
-          docker pull ${{ secrets.DOCKERHUB_USERNAME }}/test_image:latest
-
-          #ssh -i "symoon_saba_key_gen.pem" ${{ secrets.USERNAME  }}@${{ secrets.HOST  }}        
-          whoami
-          #Now we have got the access of EC2 and we will start the deploy .
+    - name: Pull testImage to Server
+      uses: appleboy/ssh-action@master
+      with:
+        host: ${{ secrets.HOST }}
+        username : ${{ secrets.USERNAME }}
+        password: ${{ secrets.PASSWORD }}
+        port: 22
+        script_stop: true
+        script: |
+          sudo -S apt install jq
+          docker login -u ${{ github.repository_owner }} -p ${{ secrets.DOCKERHUB_TOKEN }}
           
-        
-
-
