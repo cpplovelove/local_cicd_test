@@ -39,7 +39,8 @@ jobs:
       run: |
           echo "$PRIVATE_KEY" > private_key && chmod 600 private_key
           ssh -o StrictHostKeyChecking=no -i private_key ${{ secrets.USERNAME  }}@${{ secrets.HOST  }}        
-        
+          docker pull ${{ secrets.DOCKERHUB_USERNAME }}/test_image:latest
+
           #ssh -i "symoon_saba_key_gen.pem" ${{ secrets.USERNAME  }}@${{ secrets.HOST  }}        
           whoami
           #Now we have got the access of EC2 and we will start the deploy .
