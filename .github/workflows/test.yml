@@ -10,9 +10,6 @@ jobs:
     runs-on: ubuntu-18.04
 
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v2
-        
     - name: Set up Docker Buildx
       uses: docker/setup-buildx-action@v1
     
@@ -32,6 +29,7 @@ jobs:
         tags: ${{ secrets.DOCKERHUB_USERNAME }}/test_image:latest
 
     - name: Deploy in EC2
+      uses: actions/checkout@v2
       env:
           PRIVATE_KEY: ${{ secrets.KEY  }}
           HOSTNAME : ${{ secrets.HOST  }}
