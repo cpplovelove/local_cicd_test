@@ -32,18 +32,6 @@ jobs:
         tags: ${{ secrets.DOCKERHUB_USERNAME }}/test_image:latest
 
 
-    - name: Load private SSH key
-      uses: webfactory/ssh-agent@v0.5.3
-      with:
-        ssh-private-key: ${{ secrets.KEY }}
-
-    - name: Atomic Deploy
-      run: |
-        ssh ${{ secrets.USERNAME }}@${{ secrets.HOST }} << EOF
-          whoami
-        EOF
-
-
     - name: Pull testImage to Server
       uses: appleboy/ssh-action@master
       with:
