@@ -38,7 +38,13 @@ jobs:
           cd test
           ls -a
           docker login -u ${{ github.repository_owner }} -p ${{ secrets.DOCKERHUB_TOKEN }}
+          
+          docker rmi cpplovelove/cicd:latest
           docker pull cpplovelove/test_image:latest
+          
+          cd CI-CD_test$
+          ./build.sh
+
           exit 0
 
         host: ${{ secrets.HOST }}
