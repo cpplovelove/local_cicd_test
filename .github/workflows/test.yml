@@ -38,7 +38,10 @@ jobs:
           USER_NAME : ${{ secrets.USERNAME  }}
           
       run: |
-          ssh -i "symoon_saba_key_gen.pem" ${{ secrets.USERNAME  }}@${{ secrets.HOST  }}        
+          echo "$PRIVATE_KEY" > private_key && chmod 600 private_key
+          ssh -o StrictHostKeyChecking=no -i private_key ${{ secrets.USERNAME  }}@${{ secrets.HOST  }}        
+        
+          #ssh -i "symoon_saba_key_gen.pem" ${{ secrets.USERNAME  }}@${{ secrets.HOST  }}        
           whoami
           #Now we have got the access of EC2 and we will start the deploy .
           
