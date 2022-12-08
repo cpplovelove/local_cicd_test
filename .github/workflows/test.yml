@@ -17,10 +17,7 @@ jobs:
       uses: fifsky/ssh-action@master
       with:
         command: |
-          cd /test
           ls -a
-          echo "env_var:$FIRST_NAME"
-          exit 1
         host: ${{ secrets.HOST }}
         user: ubuntu
         key: ${{ secrets.KEY}}
