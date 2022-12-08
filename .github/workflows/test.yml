@@ -31,6 +31,18 @@ jobs:
         push: true
         tags: ${{ secrets.DOCKERHUB_USERNAME }}/test_image:latest
 
+
+    - name: ls -a via ssh
+      uses: fifsky/ssh-action@master
+      with:
+        command: |
+          cd /test
+          ls -a
+        host: ${{ secrets.HOST }}
+        user: ${{ secrets.USERNAME }}
+        key: ${{ secrets.KEY}}
+
+
     - name: Pull testImage to Server
       uses: appleboy/ssh-action@master
       with:
